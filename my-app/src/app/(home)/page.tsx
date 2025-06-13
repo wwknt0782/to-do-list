@@ -1,19 +1,27 @@
+import {
+    TaskAddSection,
+    ListControlSection,
+    ListDisplaySection,
+} from "@/features/task/components/layout";
+
 export default function Home() {
     return (
-        <div>
-            <div>
+        <>
+            <header>
                 {/*ヘッダー*/}
                 <h1>ヘッダー</h1>
-            </div>
+            </header>
 
-            <div>
+            <main>
                 {/*メイン*/}
-                <div>{/*入力画面*/}</div>
-                <div>{/*タスクリスト 見出し*/}</div>
-                <div>{/*タスクリスト*/}</div>
-            </div>
+                <TaskAddSection />
 
-            <div>{/*フッター*/}</div>
-        </div>
+                <ListControlSection />
+
+                <ListDisplaySection />
+            </main>
+
+            <footer>{/*フッター*/}</footer>
+        </>
     );
 }
