@@ -7,12 +7,12 @@ import {
 export default function Home() {
     return (
         <>
-            <header>
+            <header className="px-5 sm:px-10">
                 {/*ヘッダー*/}
                 <h1>ヘッダー</h1>
             </header>
 
-            <main>
+            <main className="px-5 sm:px-10">
                 {/*メイン*/}
                 <TaskAddSection />
 
