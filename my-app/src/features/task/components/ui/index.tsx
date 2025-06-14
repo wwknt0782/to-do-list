@@ -1,5 +1,6 @@
 export { TaskAddButton } from "./TaskAddButton";
-export { TaskDataInputForm } from "./TaskDataInputForm";
+export { TaskTitleInputForm } from "./TaskTitleInputForm";
+export { TaskExplanationInputForm } from "./TaskExplanationInputForm";
 export { TaskDateSelectButton } from "./TaskDateSelectButton";
 export { TaskFilterButton } from "./TaskFilterButton";
 export { TaskPrioritySelectButton } from "./TaskPrioritySelectButton";

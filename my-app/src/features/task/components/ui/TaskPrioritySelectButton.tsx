@@ -1,5 +1,6 @@
 // 優先度選択ボタン
 
+// ==========================================================================
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 
@@ -10,18 +11,21 @@ const options = [
     { value: "priority3", icon: "priority_3.svg" },
 ];
 
-type Props = {
+type TaskPrioritySelectButtonProps = {
+    value: string;
     onChange: (value: string) => void;
-    defaultValue?: string;
 };
 
-export const TaskPrioritySelectButton = ({ onChange }: Props) => {
+// ==========================================================================
+export const TaskPrioritySelectButton = ({
+    value,
+    onChange,
+}: TaskPrioritySelectButtonProps) => {
+    // const -------------------
     const [isOpen, setIsOpen] = useState(false);
-    const [selected, setSelected] = useState(options[0]);
-
     const dropdownRef = useRef<HTMLDivElement>(null);
 
-    // 外クリックでプルダウンを閉じる-------------------------------------------------------
+    // 外クリックでプルダウンを閉じる-----------
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (
@@ -31,17 +35,16 @@ export const TaskPrioritySelectButton = ({ onChange }: Props) => {
                 setIsOpen(false);
             }
         };
-
         document.addEventListener("mousedown", handleClickOutside);
-
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, []); //------------------------------------------------------------------
+    }, []);
 
+    // ==========================================================================
     return (
         <div ref={dropdownRef}>
-            {/*ボタン=====================================================*/}
+            {/*ボタン*/}
             <button
                 type="button"
                 onClick={() => {
@@ -53,31 +56,35 @@ export const TaskPrioritySelectButton = ({ onChange }: Props) => {
         border-1 border-gray-500 rounded-md cursor-pointer hover:bg-gray-100 shadow-sm"
             >
                 <div className="flex items-center justify-center">
-                    {/*アイコンの表示-----------------------------------*/}
-                    {selected.value === "" ? (
+                    {/*アイコン表示*/}
+                    {value === "" ? (
                         <p className="pt-0.5 text-gray-500">! 優先度</p>
                     ) : (
                         <Image
-                            src={selected.icon}
+                            src={
+                                options.find((o) => o.value === value)?.icon ||
+                                ""
+                            }
                             width={20}
                             height={20}
-                            alt="priority1"
+                            alt="priorityIcon"
                             className="inline-block mr-1"
                         />
                     )}{" "}
-                    {/*文字の表示------------------------------------*/}
-                    {selected.value === "priority1" ? (
-                        <p className="pt-0.5 ">最優先</p>
-                    ) : selected.value === "priority2" ? (
-                        <p className="pt-0.5 ">優先</p>
+                    {/*文字表示*/}
+                    {value === "priority1" ? (
+                        <p className="pt-0.5 ">優先度 高</p>
+                    ) : value === "priority2" ? (
+                        <p className="pt-0.5 ">優先度 中</p>
+                    ) : value === "priority3" ? (
+                        <p className="pt-0.5 ">優先度 低</p>
                     ) : (
                         ""
                     )}
-                    {/*---------------------------------------------*/}
                 </div>
             </button>
 
-            {/*プルダウン=================================================*/}
+            {/*プルダウン*/}
             {isOpen && (
                 <ul
                     className="absolute z-10
@@ -90,7 +97,6 @@ export const TaskPrioritySelectButton = ({ onChange }: Props) => {
                             type="button"
                             onClick={() => {
                                 onChange(options[0].value);
-                                setSelected(options[0]);
                                 setIsOpen(false);
                             }}
                             className="w-full pl-3 py-1 text-left cursor-pointer hover:bg-gray-100"
@@ -103,7 +109,6 @@ export const TaskPrioritySelectButton = ({ onChange }: Props) => {
                             type="button"
                             onClick={() => {
                                 onChange(options[1].value);
-                                setSelected(options[1]);
                                 setIsOpen(false);
                             }}
                             className="w-full px-2 py-1 text-left cursor-pointer hover:bg-gray-100"
@@ -115,7 +120,7 @@ export const TaskPrioritySelectButton = ({ onChange }: Props) => {
                                 alt={options[1].value}
                                 className="inline-block mr-1"
                             />
-                            最優先
+                            優先度 高
                         </button>
                     </li>
                     <li>
@@ -123,7 +128,6 @@ export const TaskPrioritySelectButton = ({ onChange }: Props) => {
                             type="button"
                             onClick={() => {
                                 onChange(options[2].value);
-                                setSelected(options[2]);
                                 setIsOpen(false);
                             }}
                             className="w-full px-2 py-1 text-left cursor-pointer hover:bg-gray-100"
@@ -135,7 +139,26 @@ export const TaskPrioritySelectButton = ({ onChange }: Props) => {
                                 alt={options[2].value}
                                 className="inline-block mr-1"
                             />
-                            優先
+                            優先度 中
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                onChange(options[3].value);
+                                setIsOpen(false);
+                            }}
+                            className="w-full px-2 py-1 text-left cursor-pointer hover:bg-gray-100"
+                        >
+                            <Image
+                                src={options[3].icon}
+                                width={20}
+                                height={20}
+                                alt={options[3].value}
+                                className="inline-block mr-1"
+                            />
+                            優先度 低
                         </button>
                     </li>
                 </ul>

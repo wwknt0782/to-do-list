@@ -1,7 +1,8 @@
-export const TaskAddButton = () => {
+export const TaskAddButton = (props: { onClick: () => void }) => {
     return (
         <button
-            type="submit"
+            type="button"
+            onClick={props.onClick}
             className="
         relative w-fit h-10 px-2 py-1
         border-2 border-gray-800 rounded-md bg-gray-800 text-white cursor-pointer  shadow-md"
