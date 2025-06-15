@@ -10,6 +10,7 @@ type taskListType = {
 };
 
 //============================================================
+// タスクデータのオブジェクトを生成する
 export const LocalStorageAddFunction = (props: {
     title: string;
     explanation: string;
@@ -30,6 +31,31 @@ export const LocalStorageAddFunction = (props: {
         ? JSON.parse(existingTask)
         : [];
     taskList.push(newTask);
-    localStorage.setItem("task", JSON.stringify(taskList));
-    window.dispatchEvent(new Event("localStorageChange")); // localStorageの変更を明示
+
+    saveLocalStorage("task", taskList, true);
 };
+
+// ============================================================
+// localStorageにデータを保存する
+export const saveLocalStorage = (
+    key: string,
+    value: taskListType[],
+    emitEvent: boolean = false // falseの時はイベント発火しない
+) => {
+    const current = localStorage.getItem(key);
+    const next = JSON.stringify(value);
+    // localStorageと入力データが違うときだけデータ更新
+    if (current !== next) {
+        localStorage.setItem(key, next);
+        if (emitEvent) {
+            window.dispatchEvent(new Event("localStorageChange"));
+        }
+    }
+};
+
+// ============================================================
+// localStorageのデータを呼び出す
+//export const loadLocalStorage = () => {
+//    const existingTask = localStorage.getItem("task") || "";
+//    return existingTask ? JSON.parse(existingTask) : [];
+//};

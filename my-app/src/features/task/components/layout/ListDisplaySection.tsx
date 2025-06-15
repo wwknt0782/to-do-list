@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { TaskElement } from "./TaskElement";
+import { saveLocalStorage } from "../../utils/LocalStorageEditFunction";
 
 type taskListType = {
     id: number;
@@ -32,10 +33,7 @@ export const ListDisplaySection = () => {
 
     // データが編集されたらlocalStorageに保存
     useEffect(() => {
-        const saveTask = () => {
-            localStorage.setItem("task", JSON.stringify(taskList));
-        };
-        saveTask();
+        saveLocalStorage("task", taskList, true);
     }, [taskList]);
 
     // 完了ボタン
