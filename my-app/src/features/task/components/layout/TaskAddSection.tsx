@@ -56,16 +56,16 @@ export const TaskAddSection = () => {
         border-1 border-gray-500 shadow-md"
         >
             {/*タイトル入力欄*/}
-            <form className="flex flex-col">
+            <div className="flex flex-col">
                 <TaskTitleInputForm value={titleValue} onChange={titleChange} />
                 {/*説明入力欄*/}
                 <TaskExplanationInputForm
                     value={explanationValue}
                     onChange={explanationChange}
                 />
-            </form>
+            </div>
 
-            <form className="flex justify-between pt-2">
+            <div className="flex justify-between pt-2">
                 <div className="flex items-end justify-start space-x-5">
                     {/*日付選択ボタン*/}
                     <TaskDateSelectButton
@@ -80,13 +80,6 @@ export const TaskAddSection = () => {
                 </div>
                 {/*タスク追加ボタン*/}
                 <TaskAddButton onClick={addClick} />
-            </form>
-
-            <div className="flex flex-col pt-5">
-                <p>タイトル：{titleValue}</p>
-                <p>説明　　：{explanationValue}</p>
-                <p>日付　　：{dateValue}</p>
-                <p>優先度　：{priorityValue}</p>
             </div>
         </section>
     );
