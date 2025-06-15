@@ -1,3 +1,3 @@
 export const StatusDisplaySection = () => {
-    return <></>;
+    return <div className="border-1 w-full">ステータス</div>;
 };

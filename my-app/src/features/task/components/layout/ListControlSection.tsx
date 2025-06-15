@@ -1,3 +1,3 @@
 export const ListControlSection = () => {
-    return <></>;
+    return <div className="border-1 w-full">検索欄とか</div>;
 };

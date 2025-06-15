@@ -52,7 +52,7 @@ export const TaskAddSection = () => {
     return (
         <section
             className="flex flex-col items-first justify-center
-            px-5 py-4
+            px-5 py-4 mx-auto max-w-200
         border-1 border-gray-500 shadow-md"
         >
             {/*タイトル入力欄*/}
