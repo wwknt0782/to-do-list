@@ -75,7 +75,7 @@ export const TaskDateSelectButton = ({
                 <button // 通常サイズ
                     type="button"
                     onClick={onClick}
-                    className="z-10 relative w-fit h-8 px-3 py-1
+                    className="z-10 relative w-fit min-w-20 h-8 px-3 py-1
         border-1 border-gray-500 rounded-md shadow-sm hover:bg-gray-100 cursor-pointer"
                 >
                     {/*ボタンの表示部分 日付が選択されたらその日付を表示する*/}

@@ -1,6 +1,6 @@
 import {
     TaskAddSection,
-    ListControlSection,
+    //ListControlSection,
     ListDisplaySection,
     StatusDisplaySection,
 } from "@/features/task/components/layout";
@@ -23,13 +23,13 @@ export default function Home() {
                 </h1>
             </header>
 
-            <main className="px-5 sm:px-10">
+            <main className="px-5 sm:px-10 overflow-x-scroll">
                 {/*メイン*/}
                 <TaskAddSection />
 
                 <div className="mt-10 flex flex-col-reverse sm:flex-row items-center justify-between space-x-5">
                     <StatusDisplaySection />
-                    <ListControlSection />
+                    {/*<ListControlSection />  未実装*/}
                 </div>
 
                 <ListDisplaySection />

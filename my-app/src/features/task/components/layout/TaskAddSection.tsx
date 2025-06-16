@@ -49,7 +49,7 @@ export const TaskAddSection = () => {
         <section
             className="flex flex-col items-first justify-center
             px-5 py-4 mx-auto max-w-200
-        border-1 border-gray-500 shadow-md"
+        border-1 border-gray-500 shadow-md "
         >
             {/*タイトル入力欄*/}
             <div className="flex flex-col">
@@ -61,7 +61,7 @@ export const TaskAddSection = () => {
                 />
             </div>
 
-            <div className="flex justify-between pt-2">
+            <div className="flex flex-col sm:flex-row space-y-4 justify-between pt-2">
                 <div className="flex items-end justify-start space-x-5">
                     {/*日付選択ボタン*/}
                     <TaskDateSelectButton
@@ -75,7 +75,9 @@ export const TaskAddSection = () => {
                     />
                 </div>
                 {/*タスク追加ボタン*/}
-                <TaskAddButton onClick={addClick} />
+                <div className="flex justify-end">
+                    <TaskAddButton onClick={addClick} />
+                </div>
             </div>
         </section>
     );

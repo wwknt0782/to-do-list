@@ -78,7 +78,7 @@ export const TaskPrioritySelectButton = ({
                     onClick={() => {
                         setIsOpen((state) => !state);
                     }}
-                    className="z-10 relative w-fit h-8 px-3 py-1
+                    className="z-10 relative w-fit min-w-25 h-8 px-3 py-1
                 border-1 border-gray-500 rounded-md cursor-pointer hover:bg-gray-100 shadow-sm"
                 >
                     <div className="flex items-center justify-center">
