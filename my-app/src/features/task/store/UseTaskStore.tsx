@@ -48,7 +48,7 @@ export const UseTaskState = create<taskState>()(
                 })), // 指定したIDの完了・未完了を切り替える
         }),
         {
-            name: "task",
+            name: "task-store",
         }
     )
 );
