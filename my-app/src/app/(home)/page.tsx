@@ -35,7 +35,7 @@ export default function Home() {
                 <ListDisplaySection />
             </main>
 
-            <footer>{/*フッター*/}</footer>
+            <footer className="h-50">{/*フッター*/}</footer>
         </>
     );
 }

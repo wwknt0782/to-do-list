@@ -1,5 +1,7 @@
 "use client";
 
+import { UseTaskStore } from "@/features/task/store/UseTaskStore";
+
 type taskListType = {
     id: number;
     title: string;
@@ -17,6 +19,8 @@ export const LocalStorageAddFunction = (props: {
     date: string;
     priority: string;
 }) => {
+    //const addTask = UseTaskStore((state) => state.addTask);
+
     const newTask: taskListType = {
         id: Date.now(),
         title: props.title || "",
@@ -32,7 +36,8 @@ export const LocalStorageAddFunction = (props: {
         : [];
     taskList.push(newTask);
 
-    saveLocalStorage("task", taskList, true);
+    //addTask(newTask);
+    //saveLocalStorage("task-store", taskList, true);
 };
 
 // ============================================================

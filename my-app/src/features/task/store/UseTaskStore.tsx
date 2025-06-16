@@ -12,40 +12,78 @@ export type taskType = {
 
 type taskState = {
     taskList: taskType[];
-    addTask: (task: taskType) => void;
+    addTask: (
+        title: string,
+        explanation: string,
+        date: string,
+        priority: string
+    ) => void;
     removeTask: (id: number) => void;
-    updateTask: (task: taskType) => void;
+    updateTask: (
+        id: number,
+        title: string,
+        explanation: string,
+        date: string,
+        priority: string,
+        check: boolean
+    ) => void;
     toggleComplete: (id: number) => void;
 };
 
-export const UseTaskState = create<taskState>()(
+export const UseTaskStore = create<taskState>()(
     persist(
         (set) => ({
+            //タスクリスト
             taskList: [],
 
-            addTask: (newTask) =>
-                set((state) => ({
-                    taskList: [...state.taskList, newTask],
-                })), //タスクを追加する
+            //タスクを追加する
+            addTask: (title, explanation, date, priority) =>
+                set((state) => {
+                    const newTask: taskType = {
+                        id: Date.now(),
+                        title: title || "タイトル",
+                        explanation: explanation || "",
+                        date: date || "",
+                        priority: priority || "",
+                        check: false,
+                    };
+                    return {
+                        taskList: [...state.taskList, newTask],
+                    };
+                }),
 
+            // 指定したIDのタスクを削除する
             removeTask: (id) =>
                 set((state) => ({
                     taskList: state.taskList.filter((t) => t.id !== id),
-                })), // 指定したIDのタスクを削除する
+                })),
 
-            updateTask: (newTask) =>
-                set((state) => ({
-                    taskList: state.taskList.map((t) =>
-                        t.id === newTask.id ? newTask : t
-                    ),
-                })), // 指定したタスクを更新する
+            // 指定したタスクを更新する
+            updateTask: (id, title, explanation, date, priority, check) =>
+                set((state) => {
+                    return {
+                        taskList: state.taskList.map((t) =>
+                            t.id === id
+                                ? {
+                                      ...t,
+                                      title: title,
+                                      explanation: explanation,
+                                      date: date,
+                                      priority: priority,
+                                      check: check,
+                                  }
+                                : t
+                        ),
+                    };
+                }),
 
+            // 指定したIDの完了・未完了を切り替える
             toggleComplete: (id) =>
                 set((state) => ({
                     taskList: state.taskList.map((t) =>
                         t.id === id ? { ...t, check: !t.check } : t
                     ),
-                })), // 指定したIDの完了・未完了を切り替える
+                })),
         }),
         {
             name: "task-store",

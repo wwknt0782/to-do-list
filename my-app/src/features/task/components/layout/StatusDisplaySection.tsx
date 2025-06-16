@@ -3,35 +3,14 @@
 
 import { useEffect, useState } from "react";
 import { Circle, CircleCheckBig } from "lucide-react";
+import { UseTaskStore } from "../../store/UseTaskStore";
 
-type taskListType = {
-    id: number;
-    title: string;
-    explanation: string;
-    date: string;
-    priority: string;
-    check: boolean;
-};
-
+// ==============================================================
 export const StatusDisplaySection = () => {
-    const [taskList, setTaskList] = useState<taskListType[]>(() => []);
+    const taskList = UseTaskStore((state) => state.taskList);
+
     const [checkedTaskAmount, setCheckedTaskAmount] = useState(0);
     const [unCheckedTaskAmount, setUnCheckedTaskAmount] = useState(0);
-
-    // localStorageに変更があったら再読み込み
-    useEffect(() => {
-        const loadTask = () => {
-            const existingTask = localStorage.getItem("task") || "";
-            setTaskList(existingTask ? JSON.parse(existingTask) : []);
-        };
-
-        window.addEventListener("localStorageChange", loadTask);
-        loadTask();
-
-        return () => {
-            window.removeEventListener("localStorageChange", loadTask);
-        };
-    }, []);
 
     // taskListが更新されたら再度カウント
     useEffect(() => {

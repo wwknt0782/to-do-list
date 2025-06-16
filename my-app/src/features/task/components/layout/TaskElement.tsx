@@ -1,35 +1,44 @@
+"use client";
+
 import { Circle, CircleCheckBig, Trash2 } from "lucide-react";
 import { TaskDateSelectButton, TaskPrioritySelectButton } from "../ui";
+import { useEffect, useState } from "react";
+import { UseTaskStore } from "../../store/UseTaskStore";
 
 type TaskElementProps = {
     id: number;
-    title: string;
-    explanation: string;
-    date: string;
-    priority: string;
-    check: boolean;
-    toggleCheck: (id: number) => void;
-    titleInput: (id: number, value: string) => void;
-    explanationInput: (id: number, value: string) => void;
-    dateInput: (id: number, value: string) => void;
-    priorityInput: (id: number, value: string) => void;
-    deleteTask: (id: number) => void;
 };
+// ===============================================================================
+export const TaskElement = ({ id }: TaskElementProps) => {
+    const taskList = UseTaskStore((state) => state.taskList);
+    const updateTask = UseTaskStore((state) => state.updateTask);
+    const removeTask = UseTaskStore((state) => state.removeTask);
 
-export const TaskElement = ({
-    id,
-    title,
-    explanation,
-    date,
-    priority,
-    check,
-    toggleCheck,
-    titleInput,
-    explanationInput,
-    dateInput,
-    priorityInput,
-    deleteTask,
-}: TaskElementProps) => {
+    const task = taskList.find((task) => task.id === id);
+
+    const [title, setTitle] = useState("");
+    const [explanation, setExplanation] = useState("");
+    const [date, setDate] = useState("");
+    const [priority, setPriority] = useState("");
+    const [check, setCheck] = useState(false);
+
+    // リストにlocalStorageのデータを反映する
+    useEffect(() => {
+        if (task) {
+            setTitle(task.title);
+            setExplanation(task.explanation);
+            setDate(task.date);
+            setPriority(task.priority);
+            setCheck(task.check);
+        }
+    }, []);
+
+    // 編集をlocalStorageに反映する
+    useEffect(() => {
+        updateTask(id, title, explanation, date, priority, check);
+    }, [id, title, explanation, date, priority, check, updateTask]);
+
+    // ===============================================================================
     return (
         <li
             key={id}
@@ -38,7 +47,7 @@ export const TaskElement = ({
             {/*チェックボタン*/}
             <button
                 onClick={() => {
-                    toggleCheck(id);
+                    setCheck((state: boolean) => !state);
                 }}
                 className="w-5 min-w-5 aspect-square cursor-pointer"
             >
@@ -50,7 +59,7 @@ export const TaskElement = ({
                     <input
                         type="text"
                         value={title}
-                        onChange={(e) => titleInput(id, e.target.value)}
+                        onChange={(e) => setTitle(e.target.value)}
                         placeholder="タイトル"
                         className="w-full font-semibold px-2 py-1 border-1 border-white hover:border-gray-500 rounded-md"
                     />
@@ -58,7 +67,7 @@ export const TaskElement = ({
                     <input
                         type="text"
                         value={explanation}
-                        onChange={(e) => explanationInput(id, e.target.value)}
+                        onChange={(e) => setExplanation(e.target.value)}
                         placeholder="説明"
                         className="w-full px-2 py-1 border-1 border-white hover:border-gray-500 rounded-md"
                     />
@@ -68,7 +77,7 @@ export const TaskElement = ({
                     <div className="w-[20%] min-w-32 ml-4 flex items-center justify-center">
                         <TaskDateSelectButton
                             value={date}
-                            onChange={(e) => dateInput(id, e.target.value)}
+                            onChange={(e) => setDate(e.target.value)}
                             size="mini"
                         />
                     </div>
@@ -77,7 +86,7 @@ export const TaskElement = ({
                     <div className="w-[10%] min-w-15 ml-4 flex items-center justify-center">
                         <TaskPrioritySelectButton
                             value={priority}
-                            onChange={(value) => priorityInput(id, value)}
+                            onChange={(value) => setPriority(value)}
                             size="mini"
                         />
                     </div>
@@ -85,7 +94,7 @@ export const TaskElement = ({
                     {/*削除ボタン*/}
                     <button
                         type="button"
-                        onClick={() => deleteTask(id)}
+                        onClick={() => removeTask(id)}
                         className="ml-4 px-2 border-1 border-white hover:border-gray-500 rounded-md hover-shadow-sm cursor-pointer"
                     >
                         <Trash2 className="size-5" />

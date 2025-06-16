@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "Taskaru",
+    title: "To Do List",
     description: "Task Management Application",
 };
 

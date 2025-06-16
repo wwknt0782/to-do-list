@@ -3,6 +3,7 @@
 
 // ==========================================================================
 import { useState } from "react";
+import { UseTaskStore } from "@/features/task/store/UseTaskStore";
 import {
     TaskTitleInputForm,
     TaskExplanationInputForm,
@@ -10,11 +11,11 @@ import {
     TaskPrioritySelectButton,
     TaskAddButton,
 } from "../ui";
-import { LocalStorageAddFunction } from "../../utils/LocalStorageEditFunction";
 
 // ==========================================================================
 export const TaskAddSection = () => {
     // const --------
+    const addTask = UseTaskStore((state) => state.addTask);
     const [titleValue, setTitleValue] = useState("");
     const [explanationValue, setExplanationValue] = useState("");
     const [dateValue, setDateValue] = useState("");
@@ -30,16 +31,11 @@ export const TaskAddSection = () => {
     };
     const priorityChange = (value: string) => setPriorityValue(value);
 
-    // function ----------
     // タスク追加ボタンをクリックしたらローカルストレージに保存する ------------
     const addClick = () => {
         if (titleValue) {
-            LocalStorageAddFunction({
-                title: titleValue,
-                explanation: explanationValue,
-                date: dateValue,
-                priority: priorityValue,
-            });
+            addTask(titleValue, explanationValue, dateValue, priorityValue);
+
             console.log("タスク追加完了");
             setTitleValue("");
             setExplanationValue("");
