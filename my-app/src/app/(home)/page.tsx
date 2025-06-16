@@ -23,7 +23,7 @@ export default function Home() {
                 </h1>
             </header>
 
-            <main className="px-5 sm:px-10 overflow-x-scroll">
+            <main className="px-5 sm:px-10">
                 {/*メイン*/}
                 <TaskAddSection />
 
