@@ -1,4 +1,4 @@
-# ToDo List アプリ
+# タスク管理アプリ
 
 [デプロイ先はこちら](https://to-do-list-pi-sepia-37.vercel.app/)
 
