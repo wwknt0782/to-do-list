@@ -40,11 +40,11 @@ export const StatusDisplaySection = () => {
                 </p>
                 <p className="w-full text-right pr-2">{progressRate} %</p>
             </div>
-            <div className="relative w-full ps-1 pt-1 pb-2">
+            <div className="w-full h-3 mx-1 my-1 px-0.5 py-0.5 flex items-center justify-start bg-gray-300 rounded-full">
                 <div
-                    className={`w-[${progressRate}%] absolute  h-2 bg-blue-200 rounded-full`}
+                    style={{ width: `${progressRate}%` }}
+                    className={`h-full bg-sky-400 rounded-full`}
                 ></div>
-                <div className="absolute w-full h-2 border-2 border-blue-600 rounded-full"></div>
             </div>
         </div>
     );
