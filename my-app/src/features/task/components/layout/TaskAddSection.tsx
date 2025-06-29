@@ -2,8 +2,8 @@
 "use client";
 
 // ==========================================================================
-import { useState } from "react";
-import { UseTaskStore } from "@/features/task/store/UseTaskStore";
+import { useState, useRef } from "react";
+import { useTaskList } from "@/features/task/store/UseTaskList";
 import {
     TaskTitleInputForm,
     TaskExplanationInputForm,
@@ -15,7 +15,7 @@ import {
 // ==========================================================================
 export const TaskAddSection = () => {
     // const --------
-    const addTask = UseTaskStore((state) => state.addTask);
+    const addTask = useTaskList((state) => state.addTask);
     const [titleValue, setTitleValue] = useState("");
     const [explanationValue, setExplanationValue] = useState("");
     const [dateValue, setDateValue] = useState("");
@@ -44,6 +44,14 @@ export const TaskAddSection = () => {
         } else return;
     };
 
+    const explanationInputRef = useRef<HTMLTextAreaElement>(null);
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            e.preventDefault(); // テキストエリアにEnterが入力されるのを防ぐ
+            explanationInputRef.current?.focus();
+        }
+    };
+
     // =====================================================================
     return (
         <section
@@ -53,11 +61,16 @@ export const TaskAddSection = () => {
         >
             {/*タイトル入力欄*/}
             <div className="flex flex-col">
-                <TaskTitleInputForm value={titleValue} onChange={titleChange} />
+                <TaskTitleInputForm
+                    value={titleValue}
+                    onChange={titleChange}
+                    onKeyDown={(e) => handleKeyDown(e)}
+                />
                 {/*説明入力欄*/}
                 <TaskExplanationInputForm
                     value={explanationValue}
                     onChange={explanationChange}
+                    ref={explanationInputRef}
                 />
             </div>
 

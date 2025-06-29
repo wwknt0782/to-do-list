@@ -30,7 +30,7 @@ type taskState = {
     toggleComplete: (id: number) => void;
 };
 
-export const UseTaskStore = create<taskState>()(
+export const useTaskList = create<taskState>()(
     persist(
         (set) => ({
             //タスクリスト
@@ -58,7 +58,7 @@ export const UseTaskStore = create<taskState>()(
                     taskList: state.taskList.filter((t) => t.id !== id),
                 })),
 
-            // 指定したタスクを更新する
+            // 指定したタスクの内容を更新する
             updateTask: (id, title, explanation, date, priority, check) =>
                 set((state) => {
                     return {

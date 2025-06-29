@@ -1,21 +1,41 @@
 "use client";
 
 import { TaskElement } from "./TaskElement";
-import { UseTaskStore } from "../../store/UseTaskStore";
+import { useDisplayTaskList } from "../../store/UseListControl";
+import { useEffect } from "react";
+import { useTaskList } from "../../store/UseTaskList";
 
 // =====================================================================
 export const ListDisplaySection = () => {
-    const taskList = UseTaskStore((state) => state.taskList);
+    const { taskList } = useTaskList(); // ローカルストレージのデータ
+    const { displayTaskList, initializeDisplayTaskList } = useDisplayTaskList(); // 表示するタスクのIDリスト
+
+    // localstorageのデータが更新されたら表示に反映する
+    useEffect(() => {
+        if (taskList.length > 0) {
+            initializeDisplayTaskList(taskList);
+        }
+    }, [JSON.stringify(taskList)]); // ←ソートでtaskListの参照が変化して発火しまうので文字列でトリガーする(再レンダリング時にzustandのpersistがsetを呼ぶため？)
 
     // =====================================================================
     return (
-        <section className="w-full mt-10 shadow-md">
-            <ol className="flex flex-col">
-                {/*子コンポーネントにmap内で情報を渡す*/}
-                {taskList.map((task) => (
-                    <TaskElement key={task.id} id={task.id} />
-                ))}
-            </ol>
+        <section className="w-full mt-10 ">
+            {displayTaskList.length > 0 ? (
+                <ol className="flex flex-col shadow-md">
+                    {/*displayがtrueのタスクをリスト表示する*/}
+                    {displayTaskList
+                        .filter((task) => task.display && task.match)
+                        .map((task) => (
+                            <div key={task.id + "div"}>
+                                <TaskElement id={task.id} />
+                            </div>
+                        ))}
+                </ol>
+            ) : (
+                <div className="h-50 flex items-center justify-center text-2xl">
+                    <p>No Data</p>
+                </div>
+            )}
         </section>
     );
 };

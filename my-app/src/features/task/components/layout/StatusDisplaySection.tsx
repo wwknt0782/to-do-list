@@ -3,11 +3,11 @@
 
 import { useEffect, useState } from "react";
 import { Circle, CircleCheckBig } from "lucide-react";
-import { UseTaskStore } from "../../store/UseTaskStore";
+import { useTaskList } from "../../store/UseTaskList";
 
 // ==============================================================
 export const StatusDisplaySection = () => {
-    const taskList = UseTaskStore((state) => state.taskList);
+    const taskList = useTaskList((state) => state.taskList);
 
     const [checkedTaskAmount, setCheckedTaskAmount] = useState(0);
     const [unCheckedTaskAmount, setUnCheckedTaskAmount] = useState(0);

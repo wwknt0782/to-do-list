@@ -1,18 +1,19 @@
+// タスク要素
 "use client";
 
 import { Circle, CircleCheckBig, Trash2 } from "lucide-react";
 import { TaskDateSelectButton, TaskPrioritySelectButton } from "../ui";
 import { useEffect, useState } from "react";
-import { UseTaskStore } from "../../store/UseTaskStore";
+import { useTaskList } from "../../store/UseTaskList";
 
 type TaskElementProps = {
     id: number;
 };
 // ===============================================================================
 export const TaskElement = ({ id }: TaskElementProps) => {
-    const taskList = UseTaskStore((state) => state.taskList);
-    const updateTask = UseTaskStore((state) => state.updateTask);
-    const removeTask = UseTaskStore((state) => state.removeTask);
+    const taskList = useTaskList((state) => state.taskList);
+    const updateTask = useTaskList((state) => state.updateTask);
+    const removeTask = useTaskList((state) => state.removeTask);
 
     const task = taskList.find((task) => task.id === id);
 
@@ -22,7 +23,7 @@ export const TaskElement = ({ id }: TaskElementProps) => {
     const [priority, setPriority] = useState("");
     const [check, setCheck] = useState(false);
 
-    // リストにlocalStorageのデータを反映する
+    // 初回レンダリング時にlocalStorageのデータを反映する
     useEffect(() => {
         if (task) {
             setTitle(task.title);
@@ -33,7 +34,7 @@ export const TaskElement = ({ id }: TaskElementProps) => {
         }
     }, []);
 
-    // 編集をlocalStorageに反映する
+    // 編集されたらlocalStorageに反映する
     useEffect(() => {
         updateTask(id, title, explanation, date, priority, check);
     }, [id, title, explanation, date, priority, check, updateTask]);
@@ -63,6 +64,7 @@ export const TaskElement = ({ id }: TaskElementProps) => {
                         placeholder="タイトル"
                         className="w-full font-semibold px-2 py-1 border-1 border-white hover:border-gray-500 rounded-md"
                     />
+
                     {/*説明*/}
                     <input
                         type="text"
@@ -95,7 +97,7 @@ export const TaskElement = ({ id }: TaskElementProps) => {
                     <button
                         type="button"
                         onClick={() => removeTask(id)}
-                        className="ml-4 px-2 border-1 border-white hover:border-gray-500 rounded-md hover-shadow-sm cursor-pointer"
+                        className="ml-4 px-2 py-1 border-1 border-white hover:border-gray-500 rounded-md hover-shadow-sm cursor-pointer"
                     >
                         <Trash2 className="size-5" />
                     </button>
