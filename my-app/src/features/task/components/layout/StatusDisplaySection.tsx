@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Circle, CircleCheckBig } from "lucide-react";
+import { CircleCheckBig } from "lucide-react";
 import { useTaskList } from "../../store/UseTaskList";
 
 // ==============================================================
@@ -22,21 +22,29 @@ export const StatusDisplaySection = () => {
         ); // チェック済みタスクの数
     }, [taskList]);
 
+    const allTaskAmount = checkedTaskAmount + unCheckedTaskAmount;
+    const progressRate =
+        allTaskAmount > 0 ? (checkedTaskAmount / allTaskAmount) * 100 : 0;
+
     // ==========================================================
     return (
-        <div className="border-1 border-gray-500 flex flex-row items-center justify-start space-x-10 w-full px-5 py-2">
-            <div className="flex flex-col items-start justify-center space-y-1">
-                <div className="flex items-center justify-start">
-                    <CircleCheckBig className="inline-block size-4" />
-                    <p className="inline-block pl-2 w-18 min-w-18">完了済み</p>
-                    <p className="inline-block">: {checkedTaskAmount}</p>
-                </div>
-
-                <div className="flex items-center justify-start">
-                    <Circle className="inline-block size-4" />
-                    <p className="inline-block pl-2 w-18 min-w-18">未完了</p>
-                    <p className="inline-block">: {unCheckedTaskAmount}</p>
-                </div>
+        <div className="border-1 border-gray-500 flex flex-col items-start justify-center w-full px-5 py-2">
+            <div className="flex flex-row items-center justify-start ml-2 w-full">
+                <CircleCheckBig className="inline-block size-4 mb-0.5 w-10" />
+                <p className="inline-block text-right ml-2 pr-2 w-10">
+                    {checkedTaskAmount}
+                </p>
+                <p> / </p>
+                <p className="inline-block text-left pl-2.5 w-10">
+                    {allTaskAmount}
+                </p>
+                <p className="w-full text-right pr-2">{progressRate} %</p>
+            </div>
+            <div className="relative w-full ps-1 pt-1 pb-2">
+                <div
+                    className={`w-[${progressRate}%] absolute  h-2 bg-blue-200 rounded-full`}
+                ></div>
+                <div className="absolute w-full h-2 border-2 border-blue-600 rounded-full"></div>
             </div>
         </div>
     );
