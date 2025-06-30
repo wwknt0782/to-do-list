@@ -20,7 +20,8 @@ export const ListDisplaySection = () => {
     // =====================================================================
     return (
         <section className="w-full mt-10 ">
-            {displayTaskList.length > 0 ? (
+            {displayTaskList.length > 0 &&
+            displayTaskList.find((task) => task.display && task.match) ? (
                 <ol className="flex flex-col shadow-md">
                     {/*displayがtrueのタスクをリスト表示する*/}
                     {displayTaskList

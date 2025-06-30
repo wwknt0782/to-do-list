@@ -38,7 +38,9 @@ export const StatusDisplaySection = () => {
                 <p className="inline-block text-left pl-2.5 w-10">
                     {allTaskAmount}
                 </p>
-                <p className="w-full text-right pr-2">{progressRate} %</p>
+                <p className="w-full text-right pr-2">
+                    {Math.round(progressRate)} %
+                </p>
             </div>
             <div className="w-full h-3 mx-1 my-1 px-0.5 py-0.5 flex items-center justify-start bg-gray-300 rounded-full">
                 <div

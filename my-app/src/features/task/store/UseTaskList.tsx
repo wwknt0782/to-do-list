@@ -66,7 +66,11 @@ export const useTaskList = create<taskState>()(
                             t.id === id
                                 ? {
                                       ...t,
-                                      title: title,
+                                      title:
+                                          title ||
+                                          state.taskList.filter(
+                                              (task) => task.id === id
+                                          )[0].title, // 空文字は受け付けない
                                       explanation: explanation,
                                       date: date,
                                       priority: priority,

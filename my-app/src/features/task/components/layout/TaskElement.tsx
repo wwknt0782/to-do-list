@@ -35,9 +35,14 @@ export const TaskElement = ({ id }: TaskElementProps) => {
     }, []);
 
     // 編集されたらlocalStorageに反映する
-    useEffect(() => {
+    const handleSubmit = () => {
+        // タイトルと説明
         updateTask(id, title, explanation, date, priority, check);
-    }, [id, title, explanation, date, priority, check, updateTask]);
+    };
+    useEffect(() => {
+        // チェック，日付，優先度
+        updateTask(id, title, explanation, date, priority, check);
+    }, [date, priority, check]);
 
     // ===============================================================================
     return (
@@ -61,6 +66,13 @@ export const TaskElement = ({ id }: TaskElementProps) => {
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                        onBlur={() => {
+                            if (title === "") {
+                                if (task) setTitle(task.title);
+                            } else {
+                                handleSubmit();
+                            }
+                        }}
                         placeholder="タイトル"
                         className="w-full font-semibold px-2 py-1 border-1 border-white hover:border-gray-500 rounded-md"
                     />
@@ -70,6 +82,7 @@ export const TaskElement = ({ id }: TaskElementProps) => {
                         type="text"
                         value={explanation}
                         onChange={(e) => setExplanation(e.target.value)}
+                        onBlur={() => handleSubmit()}
                         placeholder="説明"
                         className="w-full px-2 py-1 border-1 border-white hover:border-gray-500 rounded-md"
                     />
@@ -79,7 +92,9 @@ export const TaskElement = ({ id }: TaskElementProps) => {
                     <div className="w-[20%] min-w-32 ml-4 flex items-center justify-center">
                         <TaskDateSelectButton
                             value={date}
-                            onChange={(e) => setDate(e.target.value)}
+                            onChange={(e) => {
+                                setDate(e.target.value);
+                            }}
                             size="mini"
                         />
                     </div>
@@ -88,7 +103,9 @@ export const TaskElement = ({ id }: TaskElementProps) => {
                     <div className="w-[10%] min-w-15 ml-4 flex items-center justify-center">
                         <TaskPrioritySelectButton
                             value={priority}
-                            onChange={(value) => setPriority(value)}
+                            onChange={(value) => {
+                                setPriority(value);
+                            }}
                             size="mini"
                         />
                     </div>
@@ -96,7 +113,9 @@ export const TaskElement = ({ id }: TaskElementProps) => {
                     {/*削除ボタン*/}
                     <button
                         type="button"
-                        onClick={() => removeTask(id)}
+                        onClick={() => {
+                            removeTask(id);
+                        }}
                         className="ml-4 px-2 py-1 border-1 border-white hover:border-gray-500 rounded-md hover-shadow-sm cursor-pointer"
                     >
                         <Trash2 className="size-5" />

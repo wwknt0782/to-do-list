@@ -27,7 +27,7 @@ export default function Home() {
                 {/*メイン*/}
                 <TaskAddSection />
 
-                <div className="mt-10 flex flex-col-reverse sm:flex-row items-center justify-between space-x-5">
+                <div className="mt-10 flex flex-col sm:flex-row items-center justify-between space-y-5 sm:space-x-5 sm:space-y-0">
                     <StatusDisplaySection />
                     <ListControlSection />
                 </div>
