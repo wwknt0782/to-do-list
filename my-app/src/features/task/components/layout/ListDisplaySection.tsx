@@ -12,9 +12,7 @@ export const ListDisplaySection = () => {
 
     // localstorageのデータが更新されたら表示に反映する
     useEffect(() => {
-        if (taskList.length > 0) {
-            initializeDisplayTaskList(taskList);
-        }
+        initializeDisplayTaskList(taskList);
     }, [JSON.stringify(taskList)]); // ←ソートでtaskListの参照が変化して発火しまうので文字列でトリガーする(再レンダリング時にzustandのpersistがsetを呼ぶため？)
 
     // =====================================================================
