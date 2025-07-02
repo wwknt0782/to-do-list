@@ -51,8 +51,8 @@ export const TaskDateSelectButton = ({
         <div className="relative">
             {/*ボタン*/}
             {size === "mini" ? (
-                <button // ミニサイズ
-                    type="button"
+                <label // ミニサイズ
+                    htmlFor="task-date"
                     onClick={onClick}
                     className="z-10 relative w-fit h-8 px-3 py-1
         border-1 border-white hover:border-gray-500 rounded-md cursor-pointer"
@@ -70,10 +70,10 @@ export const TaskDateSelectButton = ({
                             </>
                         )}
                     </div>
-                </button>
+                </label>
             ) : (
-                <button // 通常サイズ
-                    type="button"
+                <label // 通常サイズ
+                    htmlFor="task-date"
                     onClick={onClick}
                     className="z-10 relative w-fit min-w-20 h-8 px-3 py-1
         border-1 border-gray-500 rounded-md shadow-sm hover:bg-gray-100 cursor-pointer"
@@ -94,11 +94,12 @@ export const TaskDateSelectButton = ({
                             </>
                         )}
                     </div>
-                </button>
+                </label>
             )}
 
             {/*入力エリア(透過)*/}
             <input
+                id="task-date"
                 type="date"
                 ref={inputRef}
                 value={value}
