@@ -58,7 +58,10 @@ export const TaskDateSelectButton = ({
         border-1 border-white hover:border-gray-500 rounded-md cursor-pointer"
                 >
                     {/*ボタンの表示部分 日付が選択されたらその日付を表示する*/}
-                    <div className="flex items-center justify-center">
+                    <label
+                        htmlFor="input-date"
+                        className="flex items-center justify-center"
+                    >
                         {value ? (
                             <>
                                 <CalendarCheck className="inline-block size-6" />
@@ -69,7 +72,7 @@ export const TaskDateSelectButton = ({
                                 <Calendar className="inline-block text-gray-500 size-6" />
                             </>
                         )}
-                    </div>
+                    </label>
                 </button>
             ) : (
                 <button // 通常サイズ
