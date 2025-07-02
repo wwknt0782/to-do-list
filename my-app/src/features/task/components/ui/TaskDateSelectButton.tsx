@@ -60,7 +60,7 @@ export const TaskDateSelectButton = ({
                     {/*ボタンの表示部分 日付が選択されたらその日付を表示する*/}
                     <label
                         htmlFor="input-date"
-                        className="flex items-center justify-center"
+                        className="flex items-center justify-center cursor-pointer"
                     >
                         {value ? (
                             <>
@@ -84,7 +84,7 @@ export const TaskDateSelectButton = ({
                     {/*ボタンの表示部分 日付が選択されたらその日付を表示する*/}
                     <label
                         htmlFor="input-date"
-                        className="flex items-center justify-center"
+                        className="flex items-center justify-center cursor-pointer"
                     >
                         {value ? (
                             <>
