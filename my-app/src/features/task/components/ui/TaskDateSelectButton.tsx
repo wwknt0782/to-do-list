@@ -2,7 +2,7 @@
 "use client";
 
 import { CalendarCheck, Calendar } from "lucide-react";
-import { useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 
 type TaskDateSelectButtonProps = {
     value: string;
@@ -16,6 +16,7 @@ export const TaskDateSelectButton = ({
     onChange,
     size,
 }: TaskDateSelectButtonProps) => {
+    const inputDateId = useId();
     const [isOpen, setIsOpen] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -59,7 +60,7 @@ export const TaskDateSelectButton = ({
                 >
                     {/*ボタンの表示部分 日付が選択されたらその日付を表示する*/}
                     <label
-                        htmlFor="input-date"
+                        htmlFor={inputDateId}
                         className="flex items-center justify-center cursor-pointer"
                     >
                         {value ? (
@@ -83,7 +84,7 @@ export const TaskDateSelectButton = ({
                 >
                     {/*ボタンの表示部分 日付が選択されたらその日付を表示する*/}
                     <label
-                        htmlFor="input-date"
+                        htmlFor={inputDateId}
                         className="flex items-center justify-center cursor-pointer"
                     >
                         {value ? (
@@ -105,7 +106,7 @@ export const TaskDateSelectButton = ({
 
             {/*入力エリア(透過)*/}
             <input
-                id="input-date"
+                id={inputDateId}
                 type="date"
                 ref={inputRef}
                 value={value}
