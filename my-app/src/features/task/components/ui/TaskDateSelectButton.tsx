@@ -36,8 +36,8 @@ export const TaskDateSelectButton = ({
                 setIsOpen(true);
             } else {
                 // Fallback: 非対応ブラウザ用にフォーカス or click
-                input.focus();
-                input.click();
+                inputRef.current?.focus();
+                inputRef.current?.click();
                 setIsOpen(true);
             }
         } else {
